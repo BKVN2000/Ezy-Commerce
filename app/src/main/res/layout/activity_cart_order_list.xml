@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.CartOrderListActivity">
+
+    <RelativeLayout
+        android:id="@+id/rlOrder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/rlTotalPayment">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvOrderTransaction"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="10dp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlTotalPayment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimary">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total"
+            android:textStyle="bold"
+            android:textColor="@color/cardview_light_background"
+            android:textSize="40sp"
+            android:layout_alignBottom="@id/tvTotalPrice"/>
+
+        <TextView
+            android:id="@+id/tvTotalPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="Total Price"
+            android:textColor="@color/cardview_light_background"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:layout_alignParentRight="true"/>
+
+        <Button
+            android:id="@+id/btnPayNow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Pay Now"
+            android:layout_marginTop="20dp"
+            android:layout_below="@id/tvTotalPrice"/>
+
+        <Button
+            android:id="@+id/btnOrderMore"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Order More"
+            android:layout_marginTop="20dp"
+            android:layout_below="@id/btnPayNow"/>
+    </RelativeLayout>
+</RelativeLayout>
