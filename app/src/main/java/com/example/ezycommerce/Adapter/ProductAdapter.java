@@ -1,7 +1,6 @@
 package com.example.ezycommerce.Adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.ezycommerce.Fragment.ProductListFragment;
 import com.example.ezycommerce.JavaClassObject.Product;
 import com.example.ezycommerce.R;
 import com.bumptech.glide.Glide;
@@ -21,14 +21,10 @@ import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> {
 
-    public interface ProductAdapterOnClickHandler {
-        void itemClicked(int ID);
-    }
-
     private List<Product> products;
     private Context ctx;
-    private ProductAdapterOnClickHandler handler;
-    public ProductAdapter(Context ctx,ProductAdapterOnClickHandler handler)
+    private ProductListFragment.ProductListFragmentListener handler;
+    public ProductAdapter(Context ctx, ProductListFragment.ProductListFragmentListener handler)
     {
         this.ctx = ctx;
         this.products = new ArrayList<>();
@@ -51,7 +47,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Product product = products.get(position);
-        Log.d("asu", "onBindViewHolder: "+ product.getName());
         holder.tvProductName.setText(product.getName());
         holder.tvProductAuthor.setText(product.getAuthor());
         holder.tvProductPrice.setText(product.getPrice().toString());

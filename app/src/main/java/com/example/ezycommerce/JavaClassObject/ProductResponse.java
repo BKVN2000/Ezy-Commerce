@@ -8,13 +8,37 @@ import java.util.List;
 public class ProductResponse {
     @SerializedName("nim")
     @Expose
-    public String NIM;
+    private String NIM;
 
     @SerializedName("nama")
     @Expose
-    public String Name;
+    private String Name;
 
     @SerializedName("products")
     @Expose
-    public List<Product> products = null;
+    private List<Product> products = null;
+
+    public String getNIM() {
+        return NIM;
+    }
+
+    public void setNIM(String NIM) {
+        this.NIM = NIM;
+    }
+
+    public String getName() {
+        return Name;
+    }
+
+    public void setName(String name) {
+        Name = name;
+    }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
 }

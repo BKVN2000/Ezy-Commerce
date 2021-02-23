@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.example.ezycommerce.Adapter.CategoryAdapter;
 import com.example.ezycommerce.Adapter.ProductAdapter;
@@ -18,14 +19,12 @@ import com.example.ezycommerce.DatabaseInstance.TransactionDBModel;
 import com.example.ezycommerce.Fragment.ProductDetailFragment;
 import com.example.ezycommerce.Fragment.ProductListFragment;
 import com.example.ezycommerce.JavaClassObject.APIClient;
-import com.example.ezycommerce.JavaClassObject.Category;
 import com.example.ezycommerce.JavaClassObject.EzyCommerceService;
 import com.example.ezycommerce.JavaClassObject.Product;
 import com.example.ezycommerce.JavaClassObject.ProductResponse;
 import com.example.ezycommerce.JavaClassObject.Transaction;
 import com.example.ezycommerce.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -33,13 +32,12 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class MainActivity extends AppCompatActivity implements CategoryAdapter.OnCategoryClickListener, ProductAdapter.ProductAdapterOnClickHandler,ProductDetailFragment.ProductDetailFragmentListener {
+public class MainActivity extends AppCompatActivity implements CategoryAdapter.OnCategoryClickListener,
+        ProductListFragment.ProductListFragmentListener,ProductDetailFragment.ProductDetailFragmentListener {
     private RecyclerView rvCategories;
-    private CategoryAdapter categoryAdapter;
-    private FrameLayout fragmentProductList;
-    private Fragment productListFragment;
     private ProductDetailFragment productDetailFragment;
-    View fragmentProductDetailContainer;
+    private View fragmentProductDetailContainer;
+    private TextView tvUserLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements CategoryAdapter.O
         setContentView(R.layout.activity_main);
         fragmentProductDetailContainer = findViewById(R.id.fragmentDetailContainer);
         int layout = 0;
+        tvUserLogin = findViewById(R.id.tvUserLogin);
         rvCategories = findViewById(R.id.rvCategories);
         layout = (fragmentProductDetailContainer == null)  ? LinearLayoutManager.HORIZONTAL :  LinearLayoutManager.VERTICAL;
 
@@ -55,7 +54,6 @@ public class MainActivity extends AppCompatActivity implements CategoryAdapter.O
         CategoryAdapter categoryAdapter = new CategoryAdapter(this,this);
         rvCategories.setAdapter(categoryAdapter);
 
-        productListFragment = new ProductListFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.fragmentProductList,new ProductListFragment()).addToBackStack(null).commit();
 
         Retrofit retrofit = APIClient.getRetrofit();
@@ -65,8 +63,10 @@ public class MainActivity extends AppCompatActivity implements CategoryAdapter.O
         call.enqueue(new Callback<ProductResponse>() {
             @Override
             public void onResponse(Call<ProductResponse> call, Response<ProductResponse> response) {
-                List<Product> listProducts = response.body().products;
+                List<Product> listProducts = response.body().getProducts();
                 categoryAdapter.setCategories(listProducts);
+
+                tvUserLogin.setText(response.body().getNIM() + ", " +response.body().getName());
             }
 
             @Override
@@ -78,12 +78,13 @@ public class MainActivity extends AppCompatActivity implements CategoryAdapter.O
     }
 
     @Override
-    public void update(String categoryName) {
+    public void onCategoryClicked(String categoryName) {
         ProductListFragment productListFragment = new ProductListFragment();
-        Bundle bundle = new Bundle();
 
+        Bundle bundle = new Bundle();
         bundle.putString("CategoryName",categoryName);
         productListFragment.setArguments(bundle);
+
         getSupportFragmentManager().beginTransaction().replace(R.id.fragmentProductList,productListFragment).addToBackStack(null).commit();
     }
 

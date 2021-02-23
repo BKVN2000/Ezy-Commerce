@@ -16,16 +16,12 @@ import com.example.ezycommerce.JavaClassObject.Transaction;
 import com.example.ezycommerce.R;
 
 public class CartOrderListActivity extends AppCompatActivity implements OrderTransactionAdapter.OnOclickOrderButtonListener {
-    public interface OnClick{
-        void update(String categoryName);
-    }
-
-    RecyclerView rvOrderTransaction;
-    TextView tvTotalPrice;
-    TransactionDBModel transactionDBModel;
-    OrderTransactionAdapter orderTransactionListAdapter;
-    Button btnPayNow;
-    Button btnOrderMore;
+    private RecyclerView rvOrderTransaction;
+    private TextView tvTotalPrice;
+    private TransactionDBModel transactionDBModel;
+    private OrderTransactionAdapter orderTransactionListAdapter;
+    private Button btnPayNow;
+    private Button btnOrderMore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

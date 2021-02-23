@@ -33,13 +33,13 @@ public class ProductDetailFragment extends Fragment {
         void onClickButtonBuy(Product p);
     }
 
-    TextView tvDescriptionContent;
-    Button btnBuy;
-    TextView tvProductPrice;
-    TextView tvProductName;
-    ImageView ivProductImage;
-    ProductDetailFragmentListener listener;
-    View view;
+    private TextView tvDescriptionContent;
+    private Button btnBuy;
+    private TextView tvProductPrice;
+    private TextView tvProductName;
+    private ImageView ivProductImage;
+    private ProductDetailFragmentListener listener;
+    private View view;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -59,7 +59,7 @@ public class ProductDetailFragment extends Fragment {
         call.enqueue(new Callback<ProductResponse>(){
             @Override
             public void onResponse(Call<ProductResponse> call, Response<ProductResponse> response) {
-                Product p = response.body().products.get(0);
+                Product p = response.body().getProducts().get(0);
                 tvProductName = view.findViewById(R.id.tvProductName);
                 tvProductName.setText(p.getName());
 

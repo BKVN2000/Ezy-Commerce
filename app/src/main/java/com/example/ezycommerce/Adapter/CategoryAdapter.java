@@ -19,12 +19,12 @@ import java.util.List;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder>{
     public interface OnCategoryClickListener{
-        void update(String categoryName);
+        void onCategoryClicked(String categoryName);
     }
 
-    List<Category> categories;
-    Context ctx;
-    OnCategoryClickListener onClick;
+    private List<Category> categories;
+    private Context ctx;
+    private OnCategoryClickListener onClick;
 
     public CategoryAdapter(Context ctx,OnCategoryClickListener onClick)
     {
@@ -37,7 +37,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         List<Category> tempCategories = new ArrayList<>();
         List<String> tempCategoryString = new ArrayList<>();
 
-        Log.d("err", "setCategories: " + products.size());
         for(Product p : products){
             if (!tempCategoryString.contains(p.getCategory())){
                 tempCategories.add(new Category(p.getCategory()));
@@ -45,7 +44,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
             }
         }
 
-        Log.d("err", "setCategoriesasdfdsf: " + tempCategories.size());
         this.categories = tempCategories;
         notifyDataSetChanged();
     }
@@ -67,7 +65,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         holder.tvCategoryName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onClick.update(category.name);
+                onClick.onCategoryClicked(category.name);
             }
         });
     }

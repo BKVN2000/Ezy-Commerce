@@ -31,7 +31,7 @@ import retrofit2.Retrofit;
 public class ProductListFragment extends Fragment {
     private RecyclerView rvProducts;
     private ProductAdapter productAdapter;
-    private ProductAdapter.ProductAdapterOnClickHandler listener;
+    private ProductListFragmentListener listener;
 
     @Nullable
     @Override
@@ -53,7 +53,7 @@ public class ProductListFragment extends Fragment {
         call.enqueue(new Callback<ProductResponse>() {
             @Override
             public void onResponse(Call<ProductResponse> call, Response<ProductResponse> response) {
-                List<Product> listBooks = response.body().products;
+                List<Product> listBooks = response.body().getProducts();
                 List<Product> tempList = new ArrayList<>();
 
                 if (!categoryName.equals("")){
@@ -82,8 +82,12 @@ public class ProductListFragment extends Fragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        if (context instanceof ProductAdapter.ProductAdapterOnClickHandler){
-            listener = (ProductAdapter.ProductAdapterOnClickHandler)context;
+        if (context instanceof ProductListFragmentListener){
+            listener = (ProductListFragmentListener)context;
         }
+    }
+
+    public interface ProductListFragmentListener {
+        void itemClicked(int ID);
     }
 }

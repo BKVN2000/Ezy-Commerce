@@ -2,7 +2,6 @@ package com.example.ezycommerce.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.ezycommerce.JavaClassObject.APIClient;
 import android.os.Bundle;
@@ -15,7 +14,6 @@ import com.example.ezycommerce.JavaClassObject.ProductResponse;
 import com.example.ezycommerce.R;
 
 import java.util.List;
-import java.util.Vector;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -44,7 +42,7 @@ public class ProductListActivity extends AppCompatActivity {
         call.enqueue(new Callback<ProductResponse>() {
             @Override
             public void onResponse(Call<ProductResponse> call, Response<ProductResponse> response) {
-                List<Product> listBooks = response.body().products;
+                List<Product> listBooks = response.body().getProducts();
                 Log.d("debug", "onResponse: " + productAdapter.getItemCount());
                 productAdapter.setProducts(listBooks);
             }
